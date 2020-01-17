@@ -134,10 +134,10 @@ function App() {
 
         <Buttonttw bclr='white' bordercolor='grey' clr='grey' bradius='5px' >Read More </Buttonttw>
         <Buttonttw bclr='white' clr='black' bordercolor='black'>Find out the best for me?</Buttonttw>
-        <Buttonttw bclr='yellow' clr='black' bordercolor='yellow'   >Submit</Buttonttw>
-        <Buttonttw bclr='yellow' clr='black' bordercolor='yellow' bradius='15px'  >Inspire me</Buttonttw>
+        <Buttonttw bclr='#F7E700' clr='black' bordercolor='#F7E700'   >Submit</Buttonttw>
+        <Buttonttw bclr='#F7E700' clr='black' bordercolor='#F7E700' bradius='15px'  >Inspire me</Buttonttw>
         <Buttonttw bclr='black' clr='white' bordercolor='white'   >Itenary</Buttonttw>
-        <Buttonttw bclr='white' clr='black' bordercolor='yellow' bradius='15px'   >Itenary</Buttonttw>
+        <Buttonttw bclr='white' clr='black' bordercolor='#F7E700' bradius='15px'   >Itenary</Buttonttw>
         {/* <Styledbutton
         alt={gettoggle.togglestate}
          onClick={togglename} >Set Name
