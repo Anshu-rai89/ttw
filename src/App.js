@@ -4,55 +4,94 @@ import logo from './logo.svg';
 import './App.css';
 import Person from './person/person';
 import './App.css'
+import { render } from '@testing-library/react';
 
 function App() {
-  const  [get,set]=useState( [
-    {
-      name:'Ashutosh',
-      sub:'Python'
-
-    },
+    const  [getperson,setperson]=useState(
     {
       
-      name:'subham',
-      sub:'ML'
-    }
-  
-  ] );
+        person:
+        [
+          {
+          name:'Ashutosh',
+          sub:'Python'
 
-   const  setNameHandler=()=>
+          },
+          {
+            
+            name:'subham',
+            sub:'ML'
+          }
+      ]
+    });
+
+    const [gettoggle,settoggle]=useState(
       {
-        set([{
-          name:'somethother',
-          sub:'fancy'
-        }]
-        )
+        togglestate:false
       }
+    )
+
+  
+    const deleteperson=(index)=>
+    {
+      const persons=getperson.person;
+
+      persons.splice(index,1);
+      setperson({person:persons});
+    } 
+
 
       const changesetperson=(event)=>
       {
-        set([
-          {
+        setperson({
+         person : {
             name:event.target.value,
-            age:90
+            sub:'React'
           }
-        ])
+        }
+
+        
+        )
       }
 
       const Styledbutton=styled.button`
-      background-color:green;
+      background-color:${props=> props.alt ? 'red' :'green'};
       color:white;
       font:inherit;
       border:1px solid blue;
       padding :10px;
       cursor:ponter;
+      margin:20px;
       &:hover{
-        background-color:lightgreen;
+        background-color:${props=> props.alt ? 'salmon' :'lightgreen'};
         color:black;
       }
       
       `;
 
+      const Styleddiv=styled.div`
+      {
+        width:90%;
+      }`
+    const togglename=()=>
+    {
+      const doshow=gettoggle.togglestate;
+      settoggle({togglestate:!doshow});
+    }
+ render()
+ {
+      let persons=null;
+      if(gettoggle.togglestate)
+      {
+        persons=(<Styleddiv>
+         { getperson.person.map( (person,index) =>
+         {
+             return <Person click={()=> deleteperson(index)} name={ person.name} sub={person.sub}
+             changed={changesetperson}/>;
+         })}
+        </Styleddiv>);
+      }
+  
 
   return (
  
@@ -61,17 +100,12 @@ function App() {
       
         <h1>Lets get started </h1>
         <Styledbutton
-         onClick={setNameHandler} >Set Name
+        alt={gettoggle.togglestate}
+         onClick={togglename} >Set Name
         
         </Styledbutton>
-        <Person  name={get[0].name} sub={get[0].sub}/>
-        <Person 
-
-        click={setNameHandler}
-        changed={changesetperson}
-         name='Ashu' 
-         sub='js'/>
-        <Person  name='Rishi' sub='Node'>  And i am Damm good at it</Person>
+        {persons}
+     
       </header>
      
     </div>
@@ -80,6 +114,7 @@ function App() {
    
   //  React.createElement('div',{className:'App-header'},React.createElement('h1',null,'hey lets test createlemet react'))
   )
+}
 }
 
 export default App;
