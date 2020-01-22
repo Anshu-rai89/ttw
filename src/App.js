@@ -93,38 +93,38 @@ function App() {
 
     //   }`;
 
-      const Styleddiv=styled.div`
-      {
-        width:200px;    
-        height:200px;
-        background-color:${props=>props.bclr}
-
-      }`
-    
+    // info array
       const info=['anshu','ankit','ashu'];
+      // clor array to update background -color
       const colors=['green','red','blue','yellow'];
-      const [getInfoIndex,setInfoIndex]=useState(
-        {
-          i:0
-        }
-      );
+      // state to keeptrackof indexes
+      const [getInfoIndex,setInfoIndex]=useState(0);
 
-      const [getColorIndex,setColorIndex]=useState(
-        {
-           j:0
-        }
-      )
+      const [getColorIndex,setColorIndex]=useState(0);
+
+      // info state 
       const [getInfo,setInfo]=useState(
         {
-          name:info[getInfoIndex.i]
+          name:info[getInfoIndex]
         }
       );
 
+      // background color state
     const [getBackgroundColor,setBackgroundColor]=useState(
     {
-      backgroundColor:colors[getColorIndex.j]
+      backgroundColor:colors[getColorIndex]
     }
     );
+
+
+   // our custom div 
+    const Styleddiv=styled.div`
+    {
+      width:200px;    
+      height:200px;
+      background-color:${getBackgroundColor.backgroundColor};
+
+    }`
 
 
 
@@ -149,94 +149,63 @@ function App() {
     
      
     // }
-    var x1=0;
-    var x2=0;
+    var x1=0;    // to keep track of intitial postion 
+    var x2=0;    // to keep track of final postion
 
    
-
-    const swipeStart=(e)=>
+// setting intitial postion of x using ontouch event listner
+    const swipeStart=(event)=>
     {    
-           x1=e.touches[0].clientX;
+           x1=event.touches[0].clientX;
            console.log('x1 is',x1);
            
     }
 
 
-   
+    // tracking touch x cordinate using touchmove
+    const swipeEnd=(event)=>
+    {  // updating x2 
+      x2=event.touches[0].clientX;
 
-    var check=true;
-
-
-    const swipeEnd=(e)=>
-    {
-      x2=e.touches[0].clientX;
-   //  console.log('x2 is',x2);
-     
-   
-
-
-
-
-      if(x2>x1)
+      // if current x postion is greater than initial right swipe is made
+    if(x2>x1)
       {
 
          
       console.log('right swipe is made');
      // break;
-
-       if(check)
-       {
-        setColorIndex(
-          {
-            j:getColorIndex.j-1
-          });
-        setInfoIndex(
-          {
-            i:getInfoIndex.i-1
-          });
-        setBackgroundColor(
-          {
-            backgroundColor:colors[getColorIndex.j]
-          });
-        setInfo(
-          {
-            name:info[ getInfoIndex.i]
-          });
-        console.log('sifting right');
-        check=false;
-       }
-
+     // checking for corner case 
+        if(getColorIndex>0){
+        // updating indexes 
+      
+          setColorIndex(getColorIndex-1);
+          setInfoIndex(getInfoIndex-1);
+          setBackgroundColor({backgroundColor:colors[getColorIndex]});
+          setInfo({name:info[ getInfoIndex]});
+          console.log('sifting right');
+        }
       }
-      else if(x2<x1)
+      // if currunt x postion is less then left swipe is made
+    else if(x2<x1)
       {
        
         console.log('left swipe is made');  
-  
-
-        if(check)
-        {
-          setColorIndex(
-            {
-              j:getColorIndex.j+1
-            });
-          setInfoIndex(
-            {
-              i:getInfoIndex.i+1
-            });
-          
-          setBackgroundColor(
-            {
-              backgroundColor:colors[getColorIndex.j]
-            });
-          setInfo(
-            {
-              name:info[ getInfoIndex.i]
-            });
-          console.log('shifting left');
-          check=false;
+        // checking boundary cases
+        if(getColorIndex<colors.length){
+          // updating indexes
+          setColorIndex(getColorIndex+1);
+          setInfoIndex(getInfoIndex+1);
+          setBackgroundColor({backgroundColor:colors[getColorIndex]});
+          setInfo({name:info[ getInfoIndex]});
         }
+        
+         
+          console.log('shifting left');
+        
        // break;
       }
+
+      // updating staring postion of x as
       x1=x2;
 
       
@@ -246,8 +215,7 @@ function App() {
 
 
     
- render()
- {
+ 
       // let persons=null;
       // if(gettoggle.togglestate)
       // {
@@ -289,7 +257,7 @@ function App() {
         
         </Styledbutton> */}
         {/* {persons} */}
-        < Styleddiv draggable="true" bclr={getBackgroundColor.backgroundColor}  onTouchStart={swipeStart} onTouchMove={swipeEnd}> {getInfo.name}  </ Styleddiv>
+        < Styleddiv draggable="true"   onTouchStart={swipeStart} onTouchMove={swipeEnd}> {getInfo.name}  </ Styleddiv>
       </header>
      
     </div>
@@ -299,7 +267,7 @@ function App() {
   //  React.createElement('div',{className:'App-header'},React.createElement('h1',null,'hey lets test createlemet react'))
   )
 }
-}
+
 
 
 export default App;
