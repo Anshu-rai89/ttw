@@ -94,35 +94,27 @@ function App() {
     //   }`;
 
     // info array
-      const info=['anshu','ankit','ashu'];
+      const info=['1','2','3','4'];
       // clor array to update background -color
       const colors=['green','red','blue','yellow'];
       // state to keeptrackof indexes
-      const [getInfoIndex,setInfoIndex]=useState(0);
+     
 
-      const [getColorIndex,setColorIndex]=useState(0);
+      const [getIndex,setIndex]=useState(0);
 
       // info state 
-      const [getInfo,setInfo]=useState(
-        {
-          name:info[getInfoIndex]
-        }
-      );
+      const [getInfo,setInfo]=useState( info[0]);
 
       // background color state
-    const [getBackgroundColor,setBackgroundColor]=useState(
-    {
-      backgroundColor:colors[getColorIndex]
-    }
-    );
+    const [getBackgroundColor,setBackgroundColor]=useState(colors[0]);
 
 
    // our custom div 
     const Styleddiv=styled.div`
     {
-      width:200px;    
-      height:200px;
-      background-color:${getBackgroundColor.backgroundColor};
+      width:30%;    
+      height:30%;
+      background-color:${getBackgroundColor};
 
     }`
 
@@ -175,13 +167,13 @@ function App() {
       console.log('right swipe is made');
      // break;
      // checking for corner case 
-        if(getColorIndex>0){
+        if(getIndex>0){
         // updating indexes 
       
-          setColorIndex(getColorIndex-1);
-          setInfoIndex(getInfoIndex-1);
-          setBackgroundColor({backgroundColor:colors[getColorIndex]});
-          setInfo({name:info[ getInfoIndex]});
+          setIndex(getIndex-1);
+          setIndex(getIndex-1);
+          setBackgroundColor(colors[getIndex-1]);
+          setInfo(info[ getIndex-1]);
           console.log('sifting right');
         }
       }
@@ -191,12 +183,12 @@ function App() {
        
         console.log('left swipe is made');  
         // checking boundary cases
-        if(getColorIndex<colors.length){
+        if(getIndex<colors.length-1){
           // updating indexes
-          setColorIndex(getColorIndex+1);
-          setInfoIndex(getInfoIndex+1);
-          setBackgroundColor({backgroundColor:colors[getColorIndex]});
-          setInfo({name:info[ getInfoIndex]});
+          setIndex(getIndex+1);
+          setIndex(getIndex+1);
+          setBackgroundColor(colors[getIndex+1]);
+          setInfo(info[ getIndex+1]);
         }
         
          
@@ -257,7 +249,7 @@ function App() {
         
         </Styledbutton> */}
         {/* {persons} */}
-        < Styleddiv draggable="true"   onTouchStart={swipeStart} onTouchMove={swipeEnd}> {getInfo.name}  </ Styleddiv>
+        < Styleddiv draggable="true"   onTouchStart={swipeStart} onTouchMove={swipeEnd}> {getInfo}  </ Styleddiv>
       </header>
      
     </div>
