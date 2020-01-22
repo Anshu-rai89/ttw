@@ -5,6 +5,7 @@ import './App.css';
 import Person from './person/person';
 import './App.css'
 import { render } from '@testing-library/react';
+import Styleddiv from './person/swipe'
 
 function App() {
     // const  [getperson,setperson]=useState(
@@ -71,28 +72,35 @@ function App() {
       
     //   `;
 
-    //   const Buttonttw=styled.button`
-    //   {
-    //      // background color  property is bclr
-    //     background-color:${props=>props.bclr};   
+      const Buttonttw=styled.button`
+      {
+         // background color  property is bclr
+        background-color:${props=>props. backgroundColor};   
         
-    //     border-top-left-radius: ${props=>props.bradius};
-    //     border-bottom-left-radius:  ${props=>props.bradius};
-    //     border-top-right-radius: ${props=>props.bradius};
-    //     border-bottom-right-radius:  ${props=>props.bradius};
-    //     border:1px solid ${props=>props.bordercolor};  
-    //     color:${props=>props.clr};
-    //     padding: 8px;
-    //     padding-inline-start: 20px;
-    //     padding-inline-end: 20px;
-    //     cursor:ponter;
-    //     margin:10px;
-    //     &:hover{
-    //       background-color:${props=>props.hbclr};
-    //     }
+        border-top-left-radius: ${props=>props.bradius};
+        border-bottom-left-radius:  ${props=>props.bradius};
+        border-top-right-radius: ${props=>props.bradius};
+        border-bottom-right-radius:  ${props=>props.bradius};
+        border:1px solid ${props=>props.bordercolor};  
+        color:${props=>props.color};
+        padding: 8px;
+        padding-inline-start: 20px;
+        padding-inline-end: 20px;
+        cursor:ponter;
+        margin:10px;
+        &:hover{
+          background-color:${props=>props.hbclr};
+        }
 
-    //   }`;
+      }`;
+    
+      const Styleddiv=styled.div`
+    {
+      width:100px;    
+      height:100px;
+      background-color:${props=>props.bclr};
 
+    }`
     // info array
       const info=['1','2','3','4'];
       // clor array to update background -color
@@ -110,13 +118,7 @@ function App() {
 
 
    // our custom div 
-    const Styleddiv=styled.div`
-    {
-      width:30%;    
-      height:30%;
-      background-color:${getBackgroundColor};
-
-    }`
+    
 
 
 
@@ -160,14 +162,14 @@ function App() {
       x2=event.touches[0].clientX;
 
       // if current x postion is greater than initial right swipe is made
-    if(x2>x1)
+    if(x2-x1>10)
       {
 
          
       console.log('right swipe is made');
      // break;
      // checking for corner case 
-        if(getIndex>0){
+        if(getIndex>0 ){
         // updating indexes 
       
           setIndex(getIndex-1);
@@ -175,10 +177,11 @@ function App() {
           setBackgroundColor(colors[getIndex-1]);
           setInfo(info[ getIndex-1]);
           console.log('sifting right');
+      
         }
       }
       // if currunt x postion is less then left swipe is made
-    else if(x2<x1)
+    else if(x1-x2>10)
       {
        
         console.log('left swipe is made');  
@@ -189,6 +192,7 @@ function App() {
           setIndex(getIndex+1);
           setBackgroundColor(colors[getIndex+1]);
           setInfo(info[ getIndex+1]);
+ 
         }
         
          
@@ -204,6 +208,26 @@ function App() {
     }
 
 
+     // defining showprev
+
+     const showPrev=()=>
+     { if(getIndex>0){
+        setIndex(getIndex-1);
+        setIndex(getIndex-1);
+        setBackgroundColor(colors[getIndex-1]);
+        setInfo(info[ getIndex-1]);
+       }
+      }
+
+     const showNext=()=>
+     {
+       if(getIndex<colors.length-1){
+          setIndex(getIndex+1);
+          setIndex(getIndex+1);
+          setBackgroundColor(colors[getIndex+1]);
+          setInfo(info[ getIndex+1]);
+       }
+     }
 
 
     
@@ -238,8 +262,22 @@ function App() {
           
 
         {/* <Buttonttw bclr='white' bordercolor='grey' clr='grey' bradius='5px' >Read More </Buttonttw>
-        <Buttonttw bclr='white' clr='black' bordercolor='black'>Find out the best for me?</Buttonttw>
-        <Buttonttw bclr='#F7E700' clr='black' bordercolor='#F7E700'   >Submit</Buttonttw>
+        <Buttonttw bclr='white' clr='black' bordercolor='black'>Find out the best for me?</Buttonttw>*/}
+        <Buttonttw 
+          backgroundColor='#F7E700' 
+          color='black' 
+          bordercolor='#F7E700'  
+          onClick={showNext}
+           >Next
+        </Buttonttw> 
+        <Buttonttw 
+           backgroundColor='#F7E700' 
+          color='black' 
+          onClick={showPrev}
+          bordercolor='#F7E700'  
+           >Prev
+           </Buttonttw> 
+          {/*}
         <Buttonttw bclr='#F7E700' clr='black' bordercolor='#F7E700' bradius='15px'  >Inspire me</Buttonttw>
         <Buttonttw bclr='black' clr='white' bordercolor='white'   >Itenary</Buttonttw>
         <Buttonttw bclr='white' clr='black' bordercolor='#F7E700' bradius='15px'   >Itenary</Buttonttw> */}
@@ -249,7 +287,7 @@ function App() {
         
         </Styledbutton> */}
         {/* {persons} */}
-        < Styleddiv draggable="true"   onTouchStart={swipeStart} onTouchMove={swipeEnd}> {getInfo}  </ Styleddiv>
+        < Styleddiv draggable='true' bclr={getBackgroundColor} onTouchStart={swipeStart} onTouchMove={swipeEnd}> {getInfo}  </ Styleddiv>
       </header>
      
     </div>
